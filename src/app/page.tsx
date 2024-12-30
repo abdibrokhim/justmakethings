@@ -33,13 +33,23 @@ const popularColors: ColorMap = {
     '#aa6f73',
     '#eea990',
     '#f6e0b5'
+  ],
+  cyberpunk: [
+    '#00010D',
+    '#010326',
+    '#2D0140',
+    '#660273',
+    '#A305A6'
   ]
 }
+
+const MAX_TEXT_LENGTH = 30
 
 export default function Home() {
   const [textColor, setTextColor] = useState('#FFFFFF')
   const [backgroundColor, setBackgroundColor] = useState('#0B0E11')
   const [selectedElement, setSelectedElement] = useState<'text' | 'background' | null>(null)
+  const [cardText, setCardText] = useState('just make things')
   const cardRef = useRef<HTMLDivElement>(null)
 
   const handleColorSelect = (color: string) => {
@@ -52,6 +62,10 @@ export default function Home() {
 
   const handleElementSelect = (element: 'text' | 'background') => {
     setSelectedElement(element)
+  }
+
+  const handleTextChange = (newText: string) => {
+    setCardText(newText)
   }
 
   useEffect(() => {
@@ -180,6 +194,9 @@ export default function Home() {
             backgroundColor={backgroundColor}
             isSelected={selectedElement}
             onSelect={handleElementSelect}
+            onTextChange={handleTextChange}
+            initialText={cardText}
+            maxLength={MAX_TEXT_LENGTH}
           />
         </div>
 
